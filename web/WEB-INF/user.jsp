@@ -7,21 +7,24 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="date" class="java.util.Date"/>
 <html>
 <head>
     <title>User</title>
-    <link rel="icon" href="Music-Treble-Clef-icon.png" type="image/x-icon">
+    <link rel="icon" href="../Music-Treble-Clef-icon.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../schedule.css">
 </head>
 <body>
-<h1>Расписание выступлений оркестра</h1>
+<div id="allContent">
+    <h1>Расписание выступлений оркестра</h1>
+    <h2><c:out value="${date}"></c:out></h2>
 <table border="2">
     <tr>
-        <td>№</td>
-        <td>Дата</td>
-        <td>Названиe</td>
-        <td>Выезд</td>
-        <td>Информация</td>
+        <th>№</th>
+        <th>Дата</th>
+        <th>Названиe</th>
+        <th>Выезд</th>
+        <th>Информация</th>
     </tr>
     <c:forEach items="${requestScope.eventsList}" var="event" varStatus="status">
         <tr>
@@ -34,5 +37,6 @@
     </c:forEach>
 </table>
 <p><a href="../">Выход</a></p>
+</div>
 </body>
 </html>

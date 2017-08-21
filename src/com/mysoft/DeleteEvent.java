@@ -17,6 +17,6 @@ public class DeleteEvent extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         DAO.deleteEvent(id);
-        response.sendRedirect("/events?authorization=admin");
+        response.sendRedirect("/index.jsp");
     }
 }

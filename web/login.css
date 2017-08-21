@@ -1,0 +1,33 @@
+body {
+    background-color: bisque;
+}
+
+
+#allContent {
+    background-color: #ff9a6c;
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+table {
+    font-size: larger;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+input {
+    width:auto;
+    font-size: large;
+}
+
+h1 {
+    margin-left: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+}

@@ -19,7 +19,7 @@ public class AddEvent extends HttpServlet {
         DAO.addEvent(title, depart_time, information, date);
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
-        response.sendRedirect("/events?authorization=admin");
+        response.sendRedirect("/index.jsp");
 
     }
 
