@@ -1,6 +1,8 @@
 package com.mysoft;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 
 @javax.servlet.annotation.WebServlet(name = "AuthServlet", urlPatterns = "/index.jsp")
@@ -8,15 +10,23 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
 
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+
         request.setCharacterEncoding("utf-8");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         if (login.equals("admin") && password.equals("1234")) {
+            HttpSession session = request.getSession();
+            session.setMaxInactiveInterval(300);
+            session.setAttribute("logged-in", "admin");
+            System.out.println(session);
             request.setAttribute("eventsList", DAO.getEventsList());
             request.getRequestDispatcher("WEB-INF/manager.jsp").forward(request,response);
         } else if (login.equals("user") && password.equals("1234")){
+            HttpSession session = request.getSession();
+            session.setAttribute("logged-in", "user");
+            System.out.println(session);
             request.setAttribute("eventsList", DAO.getEventsList());
             request.getRequestDispatcher("WEB-INF/user.jsp").forward(request,response);
         } else {
@@ -24,6 +34,9 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
         }
     }
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        if (session == null) {
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -48,6 +61,17 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
         out.println("</div>");
         out.println("</body>");
         out.println("</html>");
+        } else {
+            String logged = (String) session.getAttribute("logged-in");
+            System.out.println(logged);
+            if (logged.equals("admin")) {
+                request.setAttribute("eventsList", DAO.getEventsList());
+                request.getRequestDispatcher("WEB-INF/manager.jsp").forward(request,response);
+            } else if (logged.equals("user")) {
+                request.setAttribute("eventsList", DAO.getEventsList());
+                request.getRequestDispatcher("WEB-INF/user.jsp").forward(request,response);
+            }
+        }
     }
 }
 

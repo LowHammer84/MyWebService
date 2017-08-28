@@ -49,7 +49,7 @@ public class DAO {
     }
     public static void addEvent(String title, String depart_time, String information, String date) {
         try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement("INSERT INTO orchestra.schedule (title, depart_time, information, d_Time) VALUES (?, ?, ?, ?)"))
+             PreparedStatement ps = c.prepareStatement("INSERT INTO orchestra.schedule (title, information, d_Time) VALUES (?, ?, ?)"))
         {
 
             String fullDate = date + " " + depart_time;
@@ -58,9 +58,8 @@ public class DAO {
             calendar.setTimeInMillis(dateFormat.parse(fullDate).getTime());
 
             ps.setString(1, title);
-            ps.setString(2, depart_time);
-            ps.setString(3, information);
-            ps.setLong(4, calendar.getTimeInMillis());
+            ps.setString(2, information);
+            ps.setLong(3, calendar.getTimeInMillis());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
